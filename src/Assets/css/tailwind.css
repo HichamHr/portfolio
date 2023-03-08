@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+.btn-spinner,
+.btn-spinner:after {
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.btn-spinner {
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 0.2em solid white;
+    border-right: 0.2em solid white;
+    border-bottom: 0.2em solid white;
+    border-left: 0.2em solid transparent;
+    transform: translateZ(0);
+    animation: spinning 1s infinite linear;
+}
+
+@keyframes spinning {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.img-container {
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 450px;
+    transition: transform 0.3s;
+}
+
+.img-container img:hover {
+    transform: scale(1.5);
+}
+
+p span span {
+    position: relative;
+    bottom: -1em;
+    opacity: 0;
+    animation: move-text 0.75s forwards;
+}
+
+
+@keyframes move-text {
+    0% {
+        bottom: -0.2em;
+        opacity: 1;
+    }
+
+    50% {
+        bottom: 0.2em;
+    }
+
+    100% {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    /*body {*/
+    /*    transform: scale(0.75);*/
+    /*}*/
+}
