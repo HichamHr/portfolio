@@ -38,6 +38,12 @@ const AppRoutes = () => {
                         <Route path="create" element={<ProjectCreate/>}/>
                         <Route path=":id/details" element={<ProjectDetails/>}/>
                     </Route>
+
+                    <Route path="projects/request">
+                        <Route index element={<ProjectsIndex/>}/>
+                        <Route path="create" element={<ProjectCreate/>}/>
+                        <Route path=":id/details" element={<ProjectDetails/>}/>
+                    </Route>
                     <Route path="messages" element={<PageMessagesIndex/>}>
                         <Route path="inbox" element={<Inbox/>}>
                             <Route path=":id" element={<Show/>}/>

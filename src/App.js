@@ -14,7 +14,7 @@ function App() {
             <RecoilNexus/>
             <AnimatePresence>
                 <div className="overflow-y-hidden bg-secondary-light dark:bg-primary-dark transition duration-300">
-                    <AppRoutes/>
+                    <h1>Test</h1>
                 </div>
             </AnimatePresence>
         </RecoilRoot>

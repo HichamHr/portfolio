@@ -3,21 +3,21 @@ import AppBanner from '../../components/Shared/AppBanner';
 import ProjectsGrid from '../../components/projects/ProjectsGrid';
 import {useRecoilState} from "recoil";
 import {projectsList} from "../../states/Projects";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getAll} from "../../Repositories/Admin/ProjectRepository";
 
 const Home = () => {
 	const [projects,setProjects] = useRecoilState(projectsList)
-	const [isLoading, setIsLoading] = useState(true)
+//	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(()=>{
 		// getFirstPage({perPage:perPage,deleted_at:false})
 		getAll({deleted_at:false})
 			.then(({data,lastKey})=>{
 				setProjects(data)
-				setIsLoading(false)
+		//		setIsLoading(false)
 			})
-	},[])
+	},[setProjects])
 	return (
 		<div className="container mx-auto">
 			<AppBanner/>

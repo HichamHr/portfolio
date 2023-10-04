@@ -8,7 +8,6 @@ export default class Multi extends Component {
       "value" : d.uuid,
       "label" : d.name
     }))
-    console.log(this.props.genres);
     const options = this.props.genres.map(d => ({
       "value" : d.uuid,
       "label" : d.name

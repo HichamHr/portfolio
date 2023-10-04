@@ -44,7 +44,6 @@ const Login = () => {
         signInWithEmailAndPassword(authentication, email, password)
             .then((response) => {
                 navigate('/admin/dashboard')
-                console.log(response._tokenResponse.refreshToken);
                 sessionStorage.setItem('Auth_Token', response._tokenResponse.refreshToken)
             })
             .catch((error) => {

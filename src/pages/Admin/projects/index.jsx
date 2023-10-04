@@ -8,7 +8,7 @@ import {useRecoilState} from "recoil";
 import {projectsList} from "../../../states/Projects";
 import {AiFillEye} from "react-icons/ai";
 import Pagination from "../../../components/Shared/Pagination";
-import {getAll, getFirstPage, getNextPage, getPrevPage} from "../../../Repositories/Admin/ProjectRepository";
+import {getAll, getNextPage} from "../../../Repositories/Admin/ProjectRepository";
 
 
 function ProjectsIndex() {
@@ -28,7 +28,7 @@ function ProjectsIndex() {
             setLastKey(lastKey)
             setIsLoading(false)
         })
-    },[])
+    },[setProjects])
     const nextPage = () => {
         if(lastKey!==undefined){
             getNextPage({perPage:perPage,lastItem:lastKey,deleted_at:false}).then(async ({data, lastKey}) => {
@@ -36,14 +36,9 @@ function ProjectsIndex() {
                 setProjects([...projects, ...data])
                 setLastKey(lastKey)
                 setIsLoading(false)
-                console.log("size : " + projects.length)
-                console.log("index before")
-                console.log(index)
-                console.log("index before")
-                console.log(index)
+
             })
         }else{
-            console.log("last Page")
         }
     }
     const PrevPage = () => {

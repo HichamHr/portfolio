@@ -16,9 +16,10 @@ const uploadFilesProgressState = atom({
     key: 'uploadFilesProgressList',
     default: [],
 });
+/*
 const uploadedFilesState = atom({
     key: 'uploadedFilesListState',
     default: [],
-});
+});*/
 
 export {filesState,filesPreviewState,uploadFilesProgressState}

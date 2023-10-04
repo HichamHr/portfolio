@@ -4,10 +4,11 @@ import {BiLock} from "react-icons/bi";
 import {useRecoilState} from "recoil";
 import {filesPreviewState, filesState, uploadFilesProgressState} from "../../states/upload";
 import StorageService from "../../services/StorageService";
+import StorageServiceS from "../../services/AboutMe/StorageService";
 import { useParams } from 'react-router-dom';
 
 
-export default ({ className, name, label, accept, errors = [], onChange,...props }) => {
+export default ({ className, name, label,storageFolder, accept, errors = [], onChange,...props }) => {
   const fileInput = useRef();
   const [files, setFiles] = useRecoilState(filesState);
   const [filesPreview, setFilesPreview] = useRecoilState(filesPreviewState);
@@ -29,9 +30,9 @@ export default ({ className, name, label, accept, errors = [], onChange,...props
 
     if (files) {
       files.forEach((f, i) => {
-        setUploadFilesProgress([...uploadFilesProgress,0])
-        StorageService.uploadFile("projects/"+id,f,f.name,i).then(()=>{
+        setUploadFilesProgress([...uploadFilesProgress,i])
 
+        StorageServiceS.uploadFile(storageFolder+"/"+id,f,f.name,i).then(()=>{
         });
         readAndPreview(f)
       });

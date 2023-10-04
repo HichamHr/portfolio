@@ -1,8 +1,8 @@
 import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage'
 import {getRecoil, setRecoil} from 'recoil-nexus'
-import {storage} from "../firebase";
-import {uploadFilesProgressState} from "../states/upload";
-import {currentProjectState} from "../states/Projects";
+import {storage} from "src/firebase";
+import {uploadFilesProgressState} from "src/states/upload";
+import {aboutMeState} from "../../states/AboutMe";
 
 const getImageURL = async (path) => {
     return getDownloadURL(ref(storage, path))
@@ -26,10 +26,13 @@ const getImageURL = async (path) => {
 
 const uploadFile = async (folder, e, name, i = -1) => {
     const file = e
-    let ext = file.name.split(".").pop();
+    console.log(name)
+    console.log(e.name)
+  //  let ext = file.name.split(".").pop();
+  //  console.log(ext)
 
     if (!file) return;
-    const storageRef = ref(storage, `${folder}/${name}.${ext}`);
+    const storageRef = ref(storage, `${folder}/${name}.jpg`);
     const metadata = {
         contentType: "image/jpeg"
     };
@@ -56,15 +59,17 @@ const uploadFile = async (folder, e, name, i = -1) => {
         },
         async () => {
             await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                let project =  getRecoil(currentProjectState)
-                setRecoil(currentProjectState,{
-                    challenge: 'project.challenge',
-                    toolsTechnologies: project.toolsTechnologies,
-                    objective: project.objective,
-                    client:project.client,
-                    images:[...project.images,downloadURL]
+                let aboutMe =  getRecoil(aboutMeState)
+                setRecoil(aboutMeState,{
+                    id: aboutMe.id,
+                    content: aboutMe.content,
+                    experience: aboutMe.experience,
+                    positive_feedback: aboutMe.positive_feedback,
+                    project_completed: aboutMe.project_completed,
+                    avatar:downloadURL
                 })
-                console.log(getRecoil(currentProjectState))
+                console.log("getRecoil(aboutMeState)")
+                console.log(getRecoil(aboutMeState))
            //     imageUrl = downloadURL
             });
         }

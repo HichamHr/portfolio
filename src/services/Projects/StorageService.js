@@ -1,8 +1,8 @@
 import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage'
 import {getRecoil, setRecoil} from 'recoil-nexus'
-import {storage} from "../firebase";
-import {uploadFilesProgressState} from "../states/upload";
-import {currentProjectState} from "../states/Projects";
+import {storage} from "src/firebase";
+import {uploadFilesProgressState} from "src/states/upload";
+import {currentProjectState} from "src/states/Projects";
 
 const getImageURL = async (path) => {
     return getDownloadURL(ref(storage, path))
@@ -26,11 +26,13 @@ const getImageURL = async (path) => {
 
 const uploadFile = async (folder, e, name, i = -1) => {
     const file = e
-    let ext = file.name.split(".").pop();
-    console.log(name)
+    // :todo image has dots in name
+
+
+   // let ext = file.name.split(".").pop();
 
     if (!file) return;
-    const storageRef = ref(storage, `${folder}/${name}.${ext}`);
+    const storageRef = ref(storage, `${folder}/${name}`);
     const metadata = {
         contentType: "image/jpeg"
     };

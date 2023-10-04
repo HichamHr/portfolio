@@ -3,7 +3,6 @@ import {
     Link,
 } from 'react-router-dom'
 
-import AdminLayout from "../../../components/Shared/AdminLayout";
 import {AboutMeService, MessagesService} from "../../../services/DatabaseService";
 import {number, object, string} from "yup";
 import {Field, Formik} from "formik";
@@ -13,8 +12,10 @@ import TextArea from "../../../components/Shared/TextArea";
 import LoadingButton from "../../../components/Shared/LoadingButton";
 import {motion} from "framer-motion";
 import FileInput from "../../../components/Shared/FileInput";
-import StorageService from "../../../services/StorageService";
+import StorageService from "../../../services/AboutMe/StorageService";
 import {Helmet} from "react-helmet";
+import {useRecoilState} from "recoil";
+import {filesPreviewState} from "../../../states/upload";
 
 function AboutMePage() {
     const [processing, setProcessing] = useState(false);
@@ -23,6 +24,7 @@ function AboutMePage() {
     );
     const [showNotification, setShowNotification] = useState(false);
     const [avatarFile, setAvatarFile] = useState('');
+    const [filesPreview, setFilesPreview] = useRecoilState(filesPreviewState);
 
     const [avatar, setAvatar] = useState('');
     useEffect(() => {
@@ -35,6 +37,7 @@ function AboutMePage() {
 
     const submit = async (values) => {
         setProcessing(true);
+        console.log("start uploading")
         let imageUrl = await StorageService.uploadFile('about_me', avatarFile, "avatar").then(async (
             avatar
         ) => {
@@ -129,12 +132,24 @@ function AboutMePage() {
                                             <div>
                                                 <FileInput
                                                     name="avatar"
-                                                    label="Personal Photo"
+                                                    label="Personal Photo S"
                                                     className="mt-10 w-full md:w-1/2"
-                                                    value={avatar}
+                                                  //  value={avatar}
                                                     accept="image/*"
                                                     onChange={e => setAvatarFile(e)}
                                                 />
+
+                                                <Field
+                                                    name="avatar"
+                                                    label="Avatar"
+                                                    className="mt-10 w-full md:w-1/2"
+                                                    //  value={avatar}
+                                                    accept="image/*"
+                                                    id="avatar"
+                                                    storageFolder="about_me"
+                                                    component={FileInput}
+                                                    //   value={filesPreview}
+                                                    onChange={e => setAvatarFile(e)}/>
 
                                                 <Field
                                                     label="Content"
@@ -146,6 +161,8 @@ function AboutMePage() {
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                 />
+
+
                                             </div>
                                             <div>
                                                 <Field

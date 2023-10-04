@@ -17,7 +17,6 @@ const InputTags = (
     }
 ) => {
 
-    console.log(value)
 
     return (
         <React.Fragment>

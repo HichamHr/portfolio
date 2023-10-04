@@ -12,11 +12,9 @@ const ProjectSingle = () => {
 	let {id} = useParams();
 
 	useEffect(()=>{
-		getProjectById({id: id}).
-		then((project)=> setProject(project))
-		getProjectDetailsById({id: id}).
-		then((projectDetails)=> setProjectDetails(projectDetails))
-	},[])
+		getProjectById({id: id}).then((project)=> setProject(project))
+		getProjectDetailsById({id: id}).then((projectDetails)=> setProjectDetails(projectDetails))
+	},[id])
 
 	return (
 		<motion.div

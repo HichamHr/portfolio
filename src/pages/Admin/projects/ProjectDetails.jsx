@@ -2,11 +2,10 @@ import React, {useState, useEffect} from 'react'
 import {
     Link,
 } from 'react-router-dom'
-import {ProjectDetailsService, ProjectsService} from "../../../services/DatabaseService";
+import {ProjectDetailsService} from "../../../services/DatabaseService";
 import {array, number, object, string} from "yup";
 import {Field, FieldArray, Formik} from "formik";
 import NotifMessages from "../../../components/Shared/NotifMessages";
-import TextInput from "../../../components/Shared/TextInput";
 import LoadingButton from "../../../components/Shared/LoadingButton";
 import {motion} from "framer-motion";
 import {Helmet} from "react-helmet";
@@ -40,7 +39,7 @@ function ProjectDetails() {
         },
         images: []
     });
-    const [progress, setProgress] = useRecoilState(uploadFilesProgressState)
+    //const [progress, setProgress] = useRecoilState(uploadFilesProgressState)
 
     const [showNotification, setShowNotification] = useState(false);
     useEffect(() => {
@@ -52,7 +51,7 @@ function ProjectDetails() {
             setLoading(false)
         }).catch(() => {
         });
-    },[])
+    },[id])
 
     const submit = async (values) => {
         setProcessing(true);
@@ -155,12 +154,9 @@ function ProjectDetails() {
                                     {props => {
                                         const {
                                             values,
-                                            dirty,
-                                            isSubmitting,
                                             handleChange,
                                             handleBlur,
                                             handleSubmit,
-                                            handleReset,
                                             touched, errors
                                         } = props;
                                         return (
@@ -180,8 +176,9 @@ function ProjectDetails() {
                                                             name="images"
                                                             accept="image/*"
                                                             multiple
+                                                            storageFolder="projects"
                                                             component={FileInput}
-                                                            value={filesPreview}
+                                                         //   value={filesPreview}
                                                             onChange={e => setFilesPreview(e)}/>
                                                     </div>
                                                     <div className="col-span-2">
@@ -213,13 +210,13 @@ function ProjectDetails() {
                                                                                     className="inline-block text-xs bg-green-400 text-white py-1 px-2 mr-1 rounded">
                                                                               <span>
                                                                                   {tag}  </span>
-                                                                          <a href="#"
+                                                                          <span
                                                                              className="text-white hover:text-white"
                                                                              onClick={() => {
                                                                                  arrayHelpers.remove(index)
 
                                                                              }}
-                                                                          >&times;</a>
+                                                                          >&times;</span>
                                                                         </span>
                                                                             ))}
                                                                             <div

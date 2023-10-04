@@ -36,7 +36,6 @@ const HireMeModal = ({onClose, onRequest}) => {
 
 
     const submit = async (values) => {
-        console.log(values)
         setProcessing(true);
         try {
             await ProjectsRequest.create({
